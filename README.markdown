@@ -26,6 +26,6 @@ The possible command line options are:
 # Where can I find good wordlists / dictionaries?
 Take a look here: http://www.aircrack-ng.org/doku.php?id=faq#where_can_i_find_good_wordlists. 
 
-# inspired by
+# Inspired by
 
 This tool is inspired by http://xkcd.com/936/.
