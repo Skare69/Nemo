@@ -27,14 +27,16 @@ var min_pass_length = flag.Int("min", 30, "minimum passphrase length")
 var number_gen_passp = flag.Int("n", 10, "number of passphrases to generate")
 var replace_chars = flag.String("r", "u\",ue,a\",ae,o\",oe,A\",Ae,O\",Oe,U\",Ue", "comma separated list of old new characters to replace in every dictionary word that is used for an actual passphrase")
 // TODO add argument to enable/disable hashing of passwords (to only get distinct results)
-var distinct = flag.Bool("d", true, "whether the generated passphrases have to be distinct from each other")
+var distinct = flag.Bool("d", true, "whether the generated passphrases have to be distinct from each other.")
 
 func main() {
     // Read the command line arguments. 
     flag.Parse()
     
+    fmt.Println(*distinct)
+    
     /*flags := flag.Args()
-    //fmt.Println(flags)
+    fmt.Println(flags)
     for key, _ := range flags {
         fmt.Println(flags[key])
     }*/
@@ -80,12 +82,19 @@ func readDictionary(dict_file string, sep string) (dict[]string, err error) {
 }
 
 // Check if a given passphrase is already present in the output array
-func checkUniqueness(output []string, new_passphrase string) bool {
-    if _, is_unique := output[new_passphrase], is_unique {
-        return true
-    } else {
-        return false
+func checkUniqueness(output []string, new_passphrase string) (is_unique bool) {
+    // TODO properly check for uniqueness
+    if !*distinct {
+        is_unique = true
+        return
     }
+    is_unique = true
+    for _, value := range output {
+        if new_passphrase == value {
+            is_unique = false
+        }
+    }
+    return
 }
 
 // Generate the actual passphrase
