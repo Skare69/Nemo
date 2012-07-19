@@ -20,31 +20,27 @@ var separator = flag.String("l", "\n", "the separator used to split the input fi
 var fill = flag.String("f", "0,1,2,3,4,5,6,7,8,9,_,!,?", "comma separated list of random fill characters")
 var fill_length_min = flag.Int("fill-length-min", 1, "minimum length of the random fill insert")
 var fill_length_max = flag.Int("fill-length-max", 3, "maximum length of the random fill insert")
-var fill_before = flag.Bool("fill-before", false, "whether to insert a fill character before or after a word")
-/*var output_file = flag.String("o", "passphrases.csv", "the output file (csv passphrase list)") // TODO or simply pass the result to the bash so it can be re-directed to a file
-var output_file_type = flag.String("o-type", "csv", "the output file type")*/
+var fill_before = flag.Bool("fill-before", false, "whether to insert a fill character before or after a word") // TODO replace this with an integer: 0 none, 1 before, 2 after, 3 both
 var min_pass_length = flag.Int("min", 30, "minimum passphrase length")
 var number_gen_passp = flag.Int("n", 10, "number of passphrases to generate")
-var replace_chars = flag.String("r", "u\",ue,a\",ae,o\",oe,A\",Ae,O\",Oe,U\",Ue", "comma separated list of old new characters to replace in every dictionary word that is used for an actual passphrase")
-// TODO add argument to enable/disable hashing of passwords (to only get distinct results)
+var replace_chars = flag.String("r", "u\",ue,a\",ae,o\",oe,A\",Ae,O\",Oe,U\",Ue", "comma separated list of old new strings to replace in every dictionary word that is used for an actual passphrase")
 var distinct = flag.Bool("d", true, "whether the generated passphrases have to be distinct from each other.")
 
 func main() {
     // Read the command line arguments. 
     flag.Parse()
     
-    fmt.Println(*distinct)
-    
-    /*flags := flag.Args()
-    fmt.Println(flags)
-    for key, _ := range flags {
-        fmt.Println(flags[key])
-    }*/
+    flags := flag.Args()
+    // Check for unrecognized command line arguments and notify the user
+    if len(flags) != 0 { 
+        fmt.Println("Unrecognized arguments: ", flags)
+    }
     
     // Seed the RNG
-    rand.Seed(time.Now().UnixNano()) // only pseudo random, better use crypto/rand
+    rand.Seed(time.Now().UnixNano()) // TODO only pseudo random, better use crypto/rand
     
     // Read the dictionary files. 
+    // TODO read more than one file from input_files
     dict, err := readDictionary(*input_files, *separator)
     if err != nil {
         panic(err)
@@ -54,7 +50,7 @@ func main() {
     }
     
     output := []string{}
-    // repeat until enough passphrases are generated
+    // Repeat until enough passphrases are generated
     for i := 0; i < *number_gen_passp; i++ {
         new_passphrase := generatePassphrase(dict, strings.Split(*fill, ","))
         if checkUniqueness(output, new_passphrase) {
@@ -64,13 +60,13 @@ func main() {
         }
     }
     
-    // write the passphrases to the console
+    // Write the passphrases to the console
     for key, _ := range output {
         fmt.Println(output[key])
     }
 }
 
-// Open and read the dictionary file and push it's contents into a string array
+// Open and read the dictionary file and push its contents into a string array
 func readDictionary(dict_file string, sep string) (dict[]string, err error) {
     // TODO maybe better check the filesize first ...
     b, err := ioutil.ReadFile(dict_file)

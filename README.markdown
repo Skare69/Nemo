@@ -19,7 +19,7 @@ The possible command line options are:
 -l                  the separator used to split the input file                  "\n"
 -min                minimum passphrase length                                   30
 -n                  number of passphrases to generate                           10
--r                  comma separated list of old new characters to replace in    "u\",ue,a\",ae,o\",oe,A\",Ae,O\",Oe,U\",Ue"
+-r                  comma separated list of old new strings to replace in    "u\",ue,a\",ae,o\",oe,A\",Ae,O\",Oe,U\",Ue"
                     every dictionary word that is used for an actual passphrase
 ````
 
