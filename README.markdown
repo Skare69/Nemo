@@ -23,8 +23,6 @@ The possible command line options are:
                     every dictionary word that is used for an actual passphrase
 ````
 
-Please note that the -d switch is not yet implemented. 
-
 # Where can I find good wordlists / dictionaries?
 Take a look here: http://www.aircrack-ng.org/doku.php?id=faq#where_can_i_find_good_wordlists. 
 
