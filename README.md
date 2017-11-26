@@ -1,6 +1,6 @@
 ﻿# Nemo
 
-Nemo is a simple dictionary-based passphrase generator written in Go. It generates "secure" (by the means of length and complexity) passphrases that are still easy to memorize.  
+Nemo is a simple dictionary-based passphrase generator written in Go. It can generate "secure" (by the means of length and complexity) passphrases that are still easy to memorize.  
 
 # Usage
 
@@ -9,6 +9,8 @@ The only requirement to run Nemo successfully is to provide a valid dictionary f
 The possible command line options are: 
 
 ````bash
+Parameter           Description                                                 Default Value
+---------------------------------------------------------------------------------------------------------------------------
 -d                  whether the generated passphrases have to be distinct from  true
                     each other
 -f                  comma separated list of random fill characters              "0,1,2,3,4,5,6,7,8,9,_,!,?"
@@ -28,4 +30,4 @@ Take a look here: http://www.aircrack-ng.org/doku.php?id=faq#where_can_i_find_go
 
 # inspired by
 
-This tool is inspired by http://xkcd.com/936/.
+This tool was inspired by http://xkcd.com/936/.
